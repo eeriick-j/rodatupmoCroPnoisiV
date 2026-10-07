@@ -1,9 +1,5 @@
 # 👁️ Prácticas de Visión por Computador
 
-> Repositorio oficial para las actividades de procesamiento de imagen y programación creativa con **Python, OpenCV y Matplotlib**.
-
----
-
 ## 📂 Estructura y Contenidos
 
 ### 1️⃣ Tarea 1: Análisis Geométrico por Filas (`Canny`)
@@ -16,15 +12,13 @@
 * **Técnica:** Aplicación de un umbral fijo (`cv2.threshold`) sobre el mapa de Sobel de 8 bits y localización de zonas críticas (≥ 90% del valor máximo).
 * **Resultado:** Superposición de marcas geométricas sobre la imagen de referencia (*mandril*) y comparativa visual directa frente a Canny.
 
-### 3️⃣ Demostrador Artístico: *My Little Piece of Privacy*
+### 3️⃣ Demostrador Artístico 1: *My Little Piece of Privacy*
 * **Propósito:** Reinterpretación computacional (*transmediación*) de la célebre instalación física de **Niklas Roy**.
 * **Técnica:** Sustracción dinámica de fondo en tiempo real (`MOG2`) combinada con extracción de contornos (`Canny`) y análisis vertical por columnas (`cv2.reduce`).
 * **Resultado:** Un sistema de **persianas digitales reactivas** que se despliegan de forma milimétrica sobre la silueta del usuario para blindar su intimidad frente a la cámara web.
 
+### 4️⃣ Demostrador Artístico 2: *Esquinas Musicales Interactivas (Virtual Air Guitar / New Media)*
+* **Propósito:** Creación de una interfaz gestual reactiva inspirada en instalaciones interactivas de arte sonoro.
+* **Técnica:** Detección de movimiento por sustracción de fondo dividida en 4 regiones fijas (esquinas) con alta sensibilidad.
+* **Resultado:** Un instrumento musical visual donde al acercar la mano a cualquier esquina, el botón se ilumina en verde y emite de forma instantánea una nota musical real mediante `winsound`.
 
-
-
-Función / Algoritmo,Descripción en el Proyecto
-cv2.reduce,"Colapsa matrices 2D a vectores 1D sumando valores por filas o columnas, ideal para análisis espacial rápido."
-MOG2,Sustractor de fondo basado en mezclas de gaussianas; aísla con alta eficacia el movimiento del primer plano.
-cv2.Canny,Detector de bordes óptimo que simplifica siluetas complejas para facilitar cálculos geométricos posteriores.
