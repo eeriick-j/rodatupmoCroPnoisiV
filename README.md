@@ -1,4 +1,4 @@
-# 👁️ Guion de Prácticas: Visión por Computador (VC)
+# 👁️ Visión por Computador (VC)
 
 > **Universidad de Las Palmas de Gran Canaria (ULPGC)**  
 > **Escuela de Ingeniería en Informática** — Grado en Ingeniería Informática  
