@@ -1,6 +1,14 @@
 # 👁️ Prácticas de Visión por Computador
 
-## 📂 Estructura y Contenidos
+
+## 👥 Autores y Autoría
+* **Autores / Contributors:** Aridane Miranda Domínguez y Erick Justo Sosa
+* **Asignatura:** Visión por Computador
+* **Institución / Contexto:** Universidad de Las Palmas de Gran Canaria
+
+---
+
+## 📂 Estructura y Contenidos del Repositorio
 
 ### 1️⃣ Tarea 1: Análisis Geométrico por Filas (`Canny`)
 * **Propósito:** Conteo y reducción matricial de píxeles blancos orientados horizontalmente.
@@ -17,8 +25,9 @@
 * **Técnica:** Sustracción dinámica de fondo en tiempo real (`MOG2`) combinada con extracción de contornos (`Canny`) y análisis vertical por columnas (`cv2.reduce`).
 * **Resultado:** Un sistema de **persianas digitales reactivas** que se despliegan de forma milimétrica sobre la silueta del usuario para blindar su intimidad frente a la cámara web.
 
-### 4️⃣ Demostrador Artístico 2: *Esquinas Musicales Interactivas (Virtual Air Guitar / New Media)*
-* **Propósito:** Creación de una interfaz gestual reactiva inspirada en instalaciones interactivas de arte sonoro.
-* **Técnica:** Detección de movimiento por sustracción de fondo dividida en 4 regiones fijas (esquinas) con alta sensibilidad.
+### 4️⃣ Demostrador Artístico 2: *Esquinas Musicales Interactivas*
+* **Propósito:** Creación de una interfaz gestual reactiva inspirada en instalaciones de arte sonoro.
+* **Técnica:** Detección de movimiento por sustracción de fondo dividida en 4 regiones fijas (esquinas) optimizada para alta sensibilidad.
 * **Resultado:** Un instrumento musical visual donde al acercar la mano a cualquier esquina, el botón se ilumina en verde y emite de forma instantánea una nota musical real mediante `winsound`.
+
 
