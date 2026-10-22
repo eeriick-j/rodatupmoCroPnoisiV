@@ -63,10 +63,10 @@ P3/
 - Evaluación sobre `MPs_test.jpg` con sus anotaciones `MPs_test_bbs.csv`: Accuracy, Precision, Recall, F1 y matriz de confusión.
 
 **Resultados (solo geometría):**
-- Accuracy = 0.4833
-- Precision = 0.4927
-- Recall = 0.4833
-- F1 Score = 0.4640
+- Accuracy = 0.6000
+- Precision = 0.5862
+- Recall = 0.6000
+- F1 Score = 0.5923
 
 ![Anotaciones de test](MPs_test.jpg)
 
@@ -77,8 +77,8 @@ P3/
 Se añade la **media de los canales HSV** de cada partícula como característica de apariencia, combinándola con las geométricas, y se comparan las métricas y la matriz de confusión frente a usar solo geometría.
 
 **Resultados:**
-- Sin color → Acc=0.4833, F1=0.4640
-- Con color → Acc=0.4833, F1=0.4647
+- Sin Color -> Acc=0.6000 Prec=0.5862 Rec=0.6000 F1=0.5923
+- Con Color -> Acc=0.6083 Prec=0.6260 Rec=0.6083 F1=0.5901
 
 La mejora es marginal: en este dataset (condiciones controladas) la geometría domina y el color no aporta de forma significativa, por lo que se documenta como resultado experimental.
 
