@@ -68,7 +68,7 @@ P3/
 - Recall = 0.6000
 - F1 Score = 0.5923
 
-![Anotaciones de test](MPs_test.jpg)
+![Anotaciones de test](matriz_de_confusion1.png)
 
 ---
 
@@ -79,6 +79,8 @@ Se añade la **media de los canales HSV** de cada partícula como característic
 **Resultados:**
 - Sin Color -> Acc=0.6000 Prec=0.5862 Rec=0.6000 F1=0.5923
 - Con Color -> Acc=0.6083 Prec=0.6260 Rec=0.6083 F1=0.5901
+
+![Diagrama](matriz_de_confusion2.png)
 
 La mejora es marginal: en este dataset (condiciones controladas) la geometría domina y el color no aporta de forma significativa, por lo que se documenta como resultado experimental.
 
