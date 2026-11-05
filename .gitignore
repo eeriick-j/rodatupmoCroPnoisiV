@@ -1,0 +1,12 @@
+# Videos
+*.mp4
+*.avi
+*.mov
+
+# Modelos y pesos
+*.pth
+*.pt
+*.onnx
+
+# Otros archivos pesados
+*.weights
