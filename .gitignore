@@ -10,3 +10,6 @@
 
 # Otros archivos pesados
 *.weights
+
+__pycache__/
+*.pyc
