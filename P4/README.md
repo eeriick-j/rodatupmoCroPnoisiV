@@ -9,109 +9,36 @@
 
 ## 📂 Estructura de la práctica
 
+## 📂 Estructura del proyecto
+
 ```text
 P4/
-├── P4a/
-│   ├── preparar_dataset.py          # Preparación del dataset para YOLO
-│   ├── entrenar_yolo.py              # Entrenamiento del detector de matrículas
-│   ├── detectar_matriculas_ocr.py    # Detección de matrículas y OCR en vídeo
-│   ├── seguimiento_vehiculos.py     # Detección y tracking de personas y vehículos
-│   ├── best.pt                       # Pesos del detector de matrículas
-│   ├── video_test.mp4                # Vídeo original de prueba
-│   ├── video_resultado.mp4           # Vídeo procesado
-│   ├── detecciones.csv               # Resultados de detección y seguimiento
-│   └── dataset/
-│       ├── train/
-│       ├── val/
-│       └── test/
+├── RT-DETR/                  # Archivos relacionados con el modelo RT-DETR
+├── runs/                     # Resultados de entrenamientos y ejecuciones
+├── weights/                  # Pesos de los modelos entrenados
 │
-├── P4b/
-│   ├── comparar_ocr_vlm.py           # Comparación entre PaddleOCR y SmolVLM
-│   ├── comparacion.csv               # Resultados de la evaluación
-│   └── graficas/
-│       ├── comparacion_accuracy.png
-│       ├── comparacion_cer.png
-│       └── tiempos_inferencia.png
+├── detecciones.csv           # Resultados de detección y seguimiento
+├── load_rtdetr.py            # Carga y ejecución del modelo RT-DETR
+├── README.md                 # Documentación de la práctica
+├── requirements.txt          # Dependencias del proyecto
 │
-└── README.md
+├── test.jpg                  # Imagen de prueba
+├── VC_P4_RTDETR.ipynb        # Notebook de experimentación con RT-DETR
+│
+├── video_resultado_ocr.mp4   # Vídeo procesado con detección y OCR
+├── VIDEOAPROBAR.mp4          # Vídeo de prueba
+│
+├── yolo11n-pose.pt            # Modelo YOLO11 para estimación de pose
+├── yolo11n-seg.pt             # Modelo YOLO11 para segmentación
+├── yolo11n.pt                 # Modelo YOLO11 nano
+├── yolo11s.pt                 # Modelo YOLO11 small
+│
+└── .gitignore                # Archivos excluidos del repositorio
 ```
 
 ---
 
-# 1️⃣ Tarea 1: Preparación del conjunto de datos
-
-**Propósito:** preparar las imágenes y anotaciones de matrículas para entrenar un detector personalizado mediante YOLO.
-
-**Técnica:**
-
-- Lectura de imágenes y anotaciones originales en formato JSON.
-- Extracción de las coordenadas de las matrículas.
-- Conversión de las cajas delimitadoras al formato YOLO.
-- Normalización de las coordenadas respecto al tamaño de cada imagen.
-- Generación de archivos `.txt` asociados a cada imagen.
-- Organización del dataset para entrenamiento, validación y test.
-
-**Resultado:** conjunto de datos estructurado y compatible con Ultralytics YOLO.
-
-[Visualización del conjunto de datos](./P4a/imagenes/dataset_ejemplo.jpg)
-
----
-
-# 2️⃣ Tarea 2: Entrenamiento del detector de matrículas
-
-**Propósito:** entrenar un modelo YOLO capaz de localizar matrículas en imágenes y vídeos.
-
-**Técnica:**
-
-- Utilización de YOLO11 como modelo de partida.
-- Entrenamiento personalizado con las imágenes anotadas.
-- Configuración del tamaño de imagen, batch y número de épocas.
-- Validación del modelo durante el entrenamiento.
-- Selección de los mejores pesos generados (`best.pt`).
-
-**Evaluación:** se analizan las métricas Precision, Recall, mAP50 y mAP50-95, junto con la evolución de las funciones de pérdida.
-
-**Resultados:**
-
-| Métrica | Resultado |
-|---|---:|
-| Precision | [Completar] |
-| Recall | [Completar] |
-| mAP50 | [Completar] |
-| mAP50-95 | [Completar] |
-
-**Evolución del entrenamiento:**
-
-[Gráficas de entrenamiento](./P4a/imagenes/resultados_entrenamiento.png)
-
-[Ejemplo de detección de matrículas](./P4a/imagenes/deteccion_matriculas.jpg)
-
----
-
-# 3️⃣ Tarea 3: Detección de matrículas y reconocimiento OCR
-
-**Propósito:** detectar las matrículas presentes en un vídeo y reconocer automáticamente los caracteres que contienen.
-
-**Técnica:**
-
-- Lectura del vídeo fotograma a fotograma.
-- Detección de matrículas mediante el modelo YOLO entrenado.
-- Recorte de las regiones correspondientes a cada matrícula.
-- Reconocimiento de caracteres mediante PaddleOCR.
-- Dibujado de las cajas delimitadoras y del texto reconocido.
-- Exportación de los resultados a un archivo CSV.
-
-**Resultado:** vídeo anotado con las matrículas detectadas y el texto reconocido, junto con un CSV que almacena los resultados.
-
-**Demostración:**
-
-[![Resultado de detección y OCR](./P4a/imagenes/deteccion_ocr.jpg)](./P4a/video_deteccion_ocr.mp4)
-
-[🎬 Ver vídeo de detección y OCR](./P4a/video_deteccion_ocr.mp4)
-
----
-
-# 4️⃣ Tarea 4: Detección y seguimiento de vehículos y personas
+# 4️⃣ Tarea 1: Detección y seguimiento de vehículos y personas
 
 **Propósito:** detectar y realizar el seguimiento de personas y vehículos a lo largo de un vídeo, manteniendo un identificador único para cada objeto.
 
@@ -130,7 +57,7 @@ P4/
 **Demostración:**
 
 
-[🎬 Ver vídeo de detección y OCR](./P4/video_resultado_ocr.mp4)
+[🎬 Ver vídeo de detección y OCR](./video_resultado_ocr.mp4)
 
 **Datos exportados:** el CSV incluye información del fotograma, tipo de objeto, confianza, identificador de seguimiento, coordenadas de la detección y datos de la matrícula cuando está disponible.
 
@@ -138,7 +65,67 @@ P4/
 
 ---
 
-# 5️⃣ Tarea 5: Comparación entre OCR clásico y VLM
+
+# 1️⃣ Preparación del conjunto de datos
+
+**Propósito:** preparar las imágenes y anotaciones de matrículas para entrenar un detector personalizado mediante YOLO.
+
+**Técnica:**
+
+- Lectura de imágenes y anotaciones originales en formato JSON.
+- Extracción de las coordenadas de las matrículas.
+- Conversión de las cajas delimitadoras al formato YOLO.
+- Normalización de las coordenadas respecto al tamaño de cada imagen.
+- Generación de archivos `.txt` asociados a cada imagen.
+- Organización del dataset para entrenamiento, validación y test.
+
+**Resultado:** conjunto de datos estructurado y compatible con Ultralytics YOLO.
+
+[Visualización del conjunto de datos](./P4a/imagenes/dataset_ejemplo.jpg)
+
+---
+
+# 2️⃣ Entrenamiento del detector de matrículas
+
+**Propósito:** entrenar un modelo YOLO capaz de localizar matrículas en imágenes y vídeos.
+
+**Técnica:**
+
+- Utilización de YOLO11 como modelo de partida.
+- Entrenamiento personalizado con las imágenes anotadas.
+- Configuración del tamaño de imagen, batch y número de épocas.
+- Validación del modelo durante el entrenamiento.
+- Selección de los mejores pesos generados (`best.pt`).
+
+**Evaluación:** se analizan las métricas Precision, Recall, mAP50 y mAP50-95, junto con la evolución de las funciones de pérdida.
+
+---
+
+# 3️⃣ Tarea 2: Detección de matrículas y reconocimiento OCR
+
+**Propósito:** detectar las matrículas presentes en un vídeo y reconocer automáticamente los caracteres que contienen.
+
+**Técnica:**
+
+- Lectura del vídeo fotograma a fotograma.
+- Detección de matrículas mediante el modelo YOLO entrenado.
+- Recorte de las regiones correspondientes a cada matrícula.
+- Reconocimiento de caracteres mediante PaddleOCR.
+- Dibujado de las cajas delimitadoras y del texto reconocido.
+- Exportación de los resultados a un archivo CSV.
+
+**Resultado:** vídeo anotado con las matrículas detectadas y el texto reconocido, junto con un CSV que almacena los resultados.
+
+**Demostración:**
+
+
+[🎬 Ver vídeo de detección y OCR](./video_resultado_ocr.mp4)
+
+---
+
+
+
+# 5️⃣ Tarea 2.2: Comparación entre OCR clásico y VLM
 
 **Propósito:** comparar dos enfoques de reconocimiento de matrículas: un OCR tradicional basado en redes neuronales y un modelo de lenguaje visual.
 
@@ -190,15 +177,9 @@ El resultado final permite:
 - Generar vídeos anotados con los resultados.
 - Exportar las detecciones y reconocimientos a archivos CSV.
 
-**Vídeo final de demostración:**
-
-[![Vídeo final de la práctica](./P4a/imagenes/video_final.jpg)](./P4a/video_final.mp4)
-
-[🎥 Reproducir vídeo final](./P4a/video_final.mp4)
 
 ---
 
-## 📦 Requisitos
 
 Principales librerías utilizadas:
 
@@ -211,29 +192,7 @@ pip install paddleocr
 pip install transformers
 ```
 
-Entorno recomendado: `VC_P4` (Python 3.9.5).
-
 Para el uso de GPU es necesario disponer de una instalación compatible de CUDA y PyTorch.
 
 ---
 
-## 🖥️ Especificaciones del equipo
-
-| Componente | Especificación |
-|---|---|
-| Sistema operativo | [Completar] |
-| Procesador | [Completar] |
-| GPU | [Completar] |
-| RAM | [Completar] |
-| Python | 3.9.5 |
-
----
-
-## 📝 Notas
-
-- El detector de matrículas se entrena mediante aprendizaje supervisado a partir de imágenes anotadas.
-- El seguimiento de personas y vehículos utiliza ByteTrack.
-- El modelo de seguimiento y el detector de matrículas son modelos independientes.
-- La detección de matrículas y el reconocimiento de sus caracteres son procesos diferentes.
-- La comparativa entre PaddleOCR y SmolVLM se realiza utilizando las mismas imágenes de evaluación.
-- Los resultados de precisión y tiempo de inferencia dependen del equipo utilizado y de las condiciones del experimento.
