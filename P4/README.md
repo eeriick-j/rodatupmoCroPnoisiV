@@ -119,7 +119,7 @@ P4/
 **Demostración:**
 
 
-[🎬 Ver vídeo de detección y OCR](./video_resultado_ocr.mp4)
+[![Ver vídeo de detección y OCR](./test.jpg)](./video_resultado_ocr.mp4)
 
 ---
 
