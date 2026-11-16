@@ -15,7 +15,7 @@
 P4/
 ├── RT-DETR/                  # Archivos relacionados con el modelo RT-DETR
 ├── runs/                     # Resultados de entrenamientos y ejecuciones
-├── weights/                  # Pesos de los modelos entrenados
+├
 │
 ├── detecciones.csv           # Resultados de detección y seguimiento
 ├── load_rtdetr.py            # Carga y ejecución del modelo RT-DETR
@@ -25,8 +25,8 @@ P4/
 ├── test.jpg                  # Imagen de prueba
 ├── VC_P4_RTDETR.ipynb        # Notebook de experimentación con RT-DETR
 │
-├── video_resultado_ocr.mp4   # Vídeo procesado con detección y OCR
-├── VIDEOAPROBAR.mp4          # Vídeo de prueba
+├── video_recortado.mp4   # Vídeo procesado con detección y OCR
+├── VideoOCRparaREADME.mp4          # Vídeo de prueba
 │
 ├── yolo11n-pose.pt            # Modelo YOLO11 para estimación de pose
 ├── yolo11n-seg.pt             # Modelo YOLO11 para segmentación
@@ -57,7 +57,7 @@ P4/
 **Demostración:**
 
 
-[🎬 Ver vídeo de detección y OCR](./video_resultado_ocr.mp4)
+[🎬 Ver vídeo de detección y OCR](./video_recortado.mp4)
 
 **Datos exportados:** el CSV incluye información del fotograma, tipo de objeto, confianza, identificador de seguimiento, coordenadas de la detección y datos de la matrícula cuando está disponible.
 
@@ -81,7 +81,6 @@ P4/
 
 **Resultado:** conjunto de datos estructurado y compatible con Ultralytics YOLO.
 
-[Visualización del conjunto de datos](./P4a/imagenes/dataset_ejemplo.jpg)
 
 ---
 
@@ -119,7 +118,7 @@ P4/
 **Demostración:**
 
 
-[![Ver vídeo de detección y OCR](./test.jpg)](./video_resultado_ocr.mp4)
+[![Ver vídeo de detección y OCR](./test.jpg)](./VideoOCRparaREADME.mp4)
 
 ---
 
@@ -159,7 +158,6 @@ P4/
 
 ![Comparación de tiempos](./P4b/graficas/tiempos_inferencia.png)
 
-**Conclusiones:** [Completar con el análisis de las métricas obtenidas, indicando qué modelo ofrece mayor precisión y cuál presenta menor tiempo de inferencia.]
 
 ---
 
