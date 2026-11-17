@@ -143,20 +143,11 @@ P4/
 - Medición del tiempo de inferencia.
 - Generación de archivos CSV y gráficas comparativas.
 
-**Resultados:**
-
-| Modelo | Accuracy | CER | Tiempo medio |
-|---|---:|---:|---:|
-| PaddleOCR | [Completar] | [Completar] | [Completar] |
-| SmolVLM | [Completar] | [Completar] | [Completar] |
-
 **Comparación de resultados:**
 
-![Comparación de accuracy](./P4b/graficas/comparacion_accuracy.png)
-
-![Comparación de CER](./P4b/graficas/comparacion_cer.png)
-
-![Comparación de tiempos](./P4b/graficas/tiempos_inferencia.png)
+![Comparación de accuracy](./accuracy.png)
+![Comparación de CER](./cer.png)
+![Comparación de tiempos](./tiempos.png)
 
 
 ---
