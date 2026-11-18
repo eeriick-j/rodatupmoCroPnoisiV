@@ -49,7 +49,7 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 
 - 2.832 fotogramas procesados.
 - 29.335 filas en `detecciones.csv`.
-- 415 identificadores de seguimiento únicos.
+- 382 identificadores de seguimiento distintos (415 asignaciones clase-ID; 29 IDs aparecen en más de una clase).
 - 1.431 matrículas localizadas en 1.195 fotogramas.
 - Vídeo de salida: 1280 × 720, 25 fps, 1:53,28.
 
@@ -84,7 +84,9 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 | Camión | 37 |
 | Autobús | 9 |
 | Moto | 5 |
-| **Total** | **415** |
+| **Suma por clase** | **415** |
+
+> Hay 382 IDs distintos en total. La diferencia (415 − 382 = 33 asignaciones extra) se debe a que 29 identificadores aparecen asociados a más de una clase a lo largo del vídeo. Es un comportamiento del tracker, no un error del CSV.
 
 ### CSV de resultados
 
