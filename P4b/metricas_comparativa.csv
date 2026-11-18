@@ -1,0 +1,3 @@
+modelo,accuracy_pct,cer_pct,tiempo_medio_s
+PaddleOCR,45.0,47.0,5.2
+SmolVLM,70.0,24.0,4.2

@@ -1,0 +1,13 @@
+ultralytics>=8.3
+opencv-python
+pandas
+numpy
+pillow
+matplotlib
+tqdm
+torch>=2.0.1
+torchvision>=0.15.2
+paddlepaddle
+paddleocr
+transformers
+accelerate
