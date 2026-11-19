@@ -76,9 +76,19 @@ El CSV de esta tarea (`matriculas_detectadas.csv`) se genera ejecutando la celda
 | PaddleOCR | ≈45 % | ≈47 % | ≈5,2 s |
 | SmolVLM | ≈70 % | ≈24 % | ≈4,2 s |
 
+### Accuracy
+
 ![Comparación de accuracy](./results/comparativa_accuracy.png)
+
+### CER
+
 ![Comparación de CER](./results/comparativa_cer.png)
+
+### Tiempo de inferencia
+
 ![Comparación de tiempos](./results/comparativa_tiempos.png)
+
+> PaddleOCR se ejecutó en CPU y SmolVLM en GPU, por lo que los tiempos no son directamente comparables.
 
 Los valores agregados están en [`comparativa_metricas.csv`](./results/comparativa_metricas.csv).
 

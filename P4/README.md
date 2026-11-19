@@ -299,7 +299,6 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 - El checkpoint conserva 10 épocas aunque el notebook configure 30.
 - Se implementan los extras de anonimización y flujo direccional.
 - Queda pendiente la detección por contornos.
-- La parte OCR se documenta en P4b y sus CSV se generan ejecutando el notebook en Colab.
 
 ---
 
