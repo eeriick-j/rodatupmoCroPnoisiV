@@ -11,25 +11,32 @@
 
 ```text
 P4/
-├── best.pt                      # Detector de matrículas entrenado (YOLO11s)
-├── detecciones.csv              # Detecciones, tracking y cajas de matrícula
-├── training_results.csv         # Métricas y pérdidas de las 10 épocas
-├── training_loss.png            # Evolución de las pérdidas
-├── training_metrics.png         # Evolución de Precision, Recall y mAP
-├── extras_faciles.py            # Genera anonimización y flujo direccional
-├── load_rtdetr.py               # Carga y ejecución de RT-DETR
-├── VC_P4_RTDETR.ipynb           # Notebook de la práctica
-├── README.md                    # Documentación de P4
-├── requirements.txt             # Dependencias de P4
-│
-├── video_tarea1.mp4             # Tarea 1: vehículos/personas y matrículas
-├── video_tarea1_recorte.mp4     # Recorte de 10 s de la Tarea 1
-├── video_anonimizado.mp4        # Extra: vídeo con personas/vehículos pixelados
-├── flujo_direcciones.csv        # Extra: flujo por track
-├── flujo_direcciones_resumen.csv # Extra: resumen por clase y dirección
-├── flujo_direcciones.png        # Extra: gráfica del flujo direccional
-├── test.jpg                     # Imagen de prueba para RT-DETR
-└── yolo11s.pt                   # YOLO11 small (detección de vehículos)
+├── README.md
+├── requirements.txt
+├── P4_deteccion_vehiculos_matriculas.ipynb
+├── scripts/
+│   ├── generar_extras.py
+│   └── rtdetr_loader.py
+├── models/
+│   ├── yolo11s_matriculas.pt
+│   └── yolo11s_vehiculos.pt
+├── data/
+│   └── detecciones_tarea1.csv
+├── results/
+│   ├── videos/
+│   │   ├── deteccion_tarea1.mp4
+│   │   ├── deteccion_tarea1_recorte.mp4
+│   │   └── anonimizado.mp4
+│   ├── flujo/
+│   │   ├── flujo_tracks.csv
+│   │   ├── flujo_resumen.csv
+│   │   └── flujo_por_clase.png
+│   └── entrenamiento/
+│       ├── resultados.csv
+│       ├── perdidas.png
+│       └── metricas.png
+└── assets/
+    └── imagen_prueba_rtdetr.jpg
 ```
 
 > La parte OCR se entrega en la carpeta [`P4b/`](../P4b/README.md).
@@ -44,7 +51,7 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 
 - Detección de personas y vehículos con YOLO11.
 - Seguimiento con **ByteTrack** e identificadores únicos.
-- Localización de matrículas con el detector `best.pt`.
+- Localización de matrículas con el detector `yolo11s_matriculas.pt`.
 - Recuento de objetos únicos por clase.
 - Vídeo anotado y CSV de resultados.
 
@@ -55,7 +62,7 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 **Resultado de la ejecución:**
 
 - 2.832 fotogramas procesados.
-- 29.335 filas en `detecciones.csv`.
+- 29.335 filas en `detecciones_tarea1.csv`.
 - 382 identificadores de seguimiento distintos (415 asignaciones clase-ID; 29 IDs aparecen en más de una clase).
 - 1.431 matrículas localizadas en 1.195 fotogramas.
 - Vídeo de salida: 1280 × 720, 25 fps, 1:53,28.
@@ -68,11 +75,11 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 
 **Técnica:**
 
-- Detección de objetos mediante `yolo11s.pt`.
+- Detección de objetos mediante `yolo11s_vehiculos.pt`.
 - Clases consideradas: persona, coche, motocicleta, autobús y camión.
 - Seguimiento mediante **ByteTrack** (`bytetrack.yaml`).
 - Asignación de identificadores de seguimiento (*tracking IDs*).
-- Localización de matrículas con `best.pt` dentro de cada vehículo.
+- Localización de matrículas con `yolo11s_matriculas.pt` dentro de cada vehículo.
 - Recuento de objetos únicos por clase.
 - Generación de un vídeo anotado y un CSV.
 
@@ -80,7 +87,7 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 
 **Demostración:**
 
-[🎬 Ver recorte de la Tarea 1](./video_tarea1_recorte.mp4) · [Vídeo completo](./video_tarea1.mp4)
+[🎬 Ver recorte de la Tarea 1](./results/videos/deteccion_tarea1_recorte.mp4) · [Vídeo completo](./results/videos/deteccion_tarea1.mp4)
 
 ### Recuento de objetos únicos
 
@@ -97,7 +104,7 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 
 ### CSV de resultados
 
-El archivo [`detecciones.csv`](./detecciones.csv) contiene 29.335 filas y las siguientes columnas:
+El archivo [`detecciones_tarea1.csv`](./data/detecciones_tarea1.csv) contiene 29.335 filas y las siguientes columnas:
 
 ```text
 fotograma, tipo_objeto, confianza, identificador_tracking,
@@ -152,26 +159,26 @@ Las coordenadas están normalizadas respecto al ancho y alto de la imagen.
 
 | Parámetro | Valor |
 |---|---|
-| Modelo base | `yolo11s.pt` |
+| Modelo base | `yolo11s_vehiculos.pt` |
 | Tamaño de imagen | 640 |
 | Batch | 16 |
 | Épocas configuradas | 30 |
-| Épocas completadas en `best.pt` | 10 |
+| Épocas completadas en `yolo11s_matriculas.pt` | 10 |
 | Dispositivo | GPU (Google Colab) |
 | Dataset | [`prac4VC_dataset`](https://drive.google.com/drive/folders/1RFd6sKH_QMQcpE_w5rWmy8rKiYUY5_SI) |
 | `train` / `val` | `images` / `images` |
 
-> El notebook configura 30 épocas, pero el checkpoint `best.pt` que se conserva contiene **10 épocas**. Las curvas y métricas de este README corresponden a esas 10 épocas.
+> El notebook configura 30 épocas, pero el checkpoint `yolo11s_matriculas.pt` que se conserva contiene **10 épocas**. Las curvas y métricas de este README corresponden a esas 10 épocas.
 
 ### Evolución de las pérdidas
 
-![Evolución de las pérdidas](./training_loss.png)
+![Evolución de las pérdidas](./results/entrenamiento/perdidas.png)
 
 La pérdida de clasificación de validación tiene un pico anómalo en la época 2 (≈105,57), por eso el panel de validación se muestra en escala logarítmica. A partir de la época 4 se estabiliza alrededor de 1,0.
 
 ### Evolución de las métricas
 
-![Evolución de las métricas](./training_metrics.png)
+![Evolución de las métricas](./results/entrenamiento/metricas.png)
 
 ### Análisis del entrenamiento
 
@@ -192,7 +199,7 @@ Las pérdidas de entrenamiento descienden de forma sostenida: `box_loss` pasa de
 | mAP50-95 | 0,42086 |
 | `best_fitness` | 0,42086 |
 
-Los datos completos están en [`training_results.csv`](./training_results.csv).
+Los datos completos están en [`resultados.csv`](./results/entrenamiento/resultados.csv).
 
 > **Limitación:** al usar `val: images` igual que `train: images`, estas métricas no son una validación independiente. Para una evaluación rigurosa habría que separar train/val/test y reentrenar.
 
@@ -200,19 +207,19 @@ Los datos completos están en [`training_results.csv`](./training_results.csv).
 
 ## 4️⃣ Extras implementados
 
-Se han implementado dos extras reutilizando `detecciones.csv` y `video_tarea1.mp4`, **sin reentrenar ni repetir la inferencia**:
+Se han implementado dos extras reutilizando `detecciones_tarea1.csv` y `deteccion_tarea1.mp4`, **sin reentrenar ni repetir la inferencia**:
 
 1. Anonimización de personas y vehículos.
 2. Flujo direccional por clase.
 
-El script [`extras_faciles.py`](./extras_faciles.py) genera todos los resultados de esta sección.
+El script [`generar_extras.py`](./scripts/generar_extras.py) genera todos los resultados de esta sección.
 
 ### 4.1 Anonimización
 
 - Se recorre el vídeo fotograma a fotograma.
 - Para cada caja de persona o vehículo del CSV se aplica pixelado.
 - Se añade la etiqueta `ANONIMIZADO` en la esquina superior izquierda.
-- Salida: [`video_anonimizado.mp4`](./video_anonimizado.mp4).
+- Salida: [`anonimizado.mp4`](./results/videos/anonimizado.mp4).
 - Resultado: 2.832 fotogramas, 1280 × 720, 25 fps, 29.335 cajas pixeladas.
 
 > El vídeo conserva las cajas y los contadores originales, pero las regiones correspondientes a personas y vehículos están pixeladas.
@@ -249,11 +256,11 @@ Se consideran **tracks válidos** aquellos con al menos **5 detecciones** y un d
 
 **Salidas:**
 
-- [`flujo_direcciones.csv`](./flujo_direcciones.csv): una fila por track, con desplazamiento y dirección.
-- [`flujo_direcciones_resumen.csv`](./flujo_direcciones_resumen.csv): resumen por clase y dirección.
-- [`flujo_direcciones.png`](./flujo_direcciones.png): gráfica comparativa.
+- [`flujo_tracks.csv`](./results/flujo/flujo_tracks.csv): una fila por track, con desplazamiento y dirección.
+- [`flujo_resumen.csv`](./results/flujo/flujo_resumen.csv): resumen por clase y dirección.
+- [`flujo_por_clase.png`](./results/flujo/flujo_por_clase.png): gráfica comparativa.
 
-![Flujo direccional](./flujo_direcciones.png)
+![Flujo direccional](./results/flujo/flujo_por_clase.png)
 
 > **Limitación:** los tracks que no cruzan la imagen, los que se pierden por oclusión o los que cambian de ID no siempre reflejan la dirección real. Por eso se descartan los tracks con pocas detecciones o poco desplazamiento.
 
@@ -261,11 +268,11 @@ Se consideran **tracks válidos** aquellos con al menos **5 detecciones** y un d
 
 ## 5️⃣ RT-DETR
 
-El notebook incluye ejemplos de RT-DETR y el módulo [`load_rtdetr.py`](./load_rtdetr.py), que permite cargar las familias v1 y v2 en distintos tamaños.
+El notebook incluye ejemplos de RT-DETR y el módulo [`rtdetr_loader.py`](./scripts/rtdetr_loader.py), que permite cargar las familias v1 y v2 en distintos tamaños.
 
-- `load_rtdetr.py` descarga los pesos oficiales y construye el modelo y el postprocesador.
-- `test.jpg` se usa como imagen de prueba.
-- RT-DETR **no** se usa para generar `detecciones.csv` ni el vídeo final; el detector final de matrículas es YOLO11s (`best.pt`).
+- `rtdetr_loader.py` descarga los pesos oficiales y construye el modelo y el postprocesador.
+- `imagen_prueba_rtdetr.jpg` se usa como imagen de prueba.
+- RT-DETR **no** se usa para generar `detecciones_tarea1.csv` ni el vídeo final; el detector final de matrículas es YOLO11s (`yolo11s_matriculas.pt`).
 
 > La comparativa YOLO vs RT-DETR para detección de matrículas es un extra del enunciado y no forma parte de la entrega base.
 
@@ -279,17 +286,17 @@ conda activate VC_P4
 pip install -r requirements.txt
 ```
 
-Después, abrir [`VC_P4_RTDETR.ipynb`](./VC_P4_RTDETR.ipynb) y ejecutar las celdas de la Tarea 1. El notebook espera el vídeo `C0142.MP4` y los modelos `yolo11s.pt` y `best.pt` en la carpeta de trabajo.
+Después, abrir [`P4_deteccion_vehiculos_matriculas.ipynb`](./P4_deteccion_vehiculos_matriculas.ipynb) y ejecutar las celdas de la Tarea 1. El notebook espera el vídeo `C0142.MP4` en la raíz y los modelos en `models/yolo11s_vehiculos.pt` y `models/yolo11s_matriculas.pt`.
 
 El vídeo de entrada no se incluye en el repositorio por tamaño; se utilizó el vídeo proporcionado para la práctica.
 
 Para regenerar la anonimización y el flujo direccional:
 
 ```bash
-python extras_faciles.py
+python scripts/generar_extras.py
 ```
 
-El script lee `detecciones.csv` y `video_tarea1.mp4`, y genera `video_anonimizado.mp4`, `flujo_direcciones.csv`, `flujo_direcciones_resumen.csv` y `flujo_direcciones.png`.
+El script lee `data/detecciones_tarea1.csv` y `results/videos/deteccion_tarea1.mp4`, y genera `results/videos/anonimizado.mp4` y los archivos de `results/flujo/`.
 
 Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
@@ -298,14 +305,14 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 ## 7️⃣ Entregables de P4
 
 - [`README.md`](./README.md)
-- [`VC_P4_RTDETR.ipynb`](./VC_P4_RTDETR.ipynb)
-- [`video_tarea1.mp4`](./video_tarea1.mp4)
-- [`detecciones.csv`](./detecciones.csv)
-- [`best.pt`](./best.pt)
-- [`training_loss.png`](./training_loss.png), [`training_metrics.png`](./training_metrics.png) y [`training_results.csv`](./training_results.csv)
-- [`extras_faciles.py`](./extras_faciles.py)
-- [`video_anonimizado.mp4`](./video_anonimizado.mp4)
-- [`flujo_direcciones.csv`](./flujo_direcciones.csv), [`flujo_direcciones_resumen.csv`](./flujo_direcciones_resumen.csv) y [`flujo_direcciones.png`](./flujo_direcciones.png)
+- [`P4_deteccion_vehiculos_matriculas.ipynb`](./P4_deteccion_vehiculos_matriculas.ipynb)
+- [`deteccion_tarea1.mp4`](./results/videos/deteccion_tarea1.mp4)
+- [`detecciones_tarea1.csv`](./data/detecciones_tarea1.csv)
+- [`yolo11s_matriculas.pt`](./models/yolo11s_matriculas.pt)
+- [`perdidas.png`](./results/entrenamiento/perdidas.png), [`metricas.png`](./results/entrenamiento/metricas.png) y [`resultados.csv`](./results/entrenamiento/resultados.csv)
+- [`generar_extras.py`](./scripts/generar_extras.py)
+- [`anonimizado.mp4`](./results/videos/anonimizado.mp4)
+- [`flujo_tracks.csv`](./results/flujo/flujo_tracks.csv), [`flujo_resumen.csv`](./results/flujo/flujo_resumen.csv) y [`flujo_por_clase.png`](./results/flujo/flujo_por_clase.png)
 - Dataset: [`prac4VC_dataset`](https://drive.google.com/drive/folders/1RFd6sKH_QMQcpE_w5rWmy8rKiYUY5_SI)
 - Parte OCR: [`P4b/`](../P4b/README.md)
 

@@ -11,14 +11,16 @@
 
 ```text
 P4b/
-├── README.md                    # Documentación de P4b
-├── requirements.txt             # Dependencias de OCR
-├── VideoOCRparaREADME.mp4       # Tarea 2: matrículas + OCR
-├── test.jpg                     # Miniatura del vídeo
-├── accuracy.png                 # Gráfica de accuracy (Tarea 2.2)
-├── cer.png                      # Gráfica de CER (Tarea 2.2)
-├── tiempos.png                  # Gráfica de tiempos (Tarea 2.2)
-└── metricas_comparativa.csv     # Métricas agregadas de la comparativa
+├── README.md
+├── requirements.txt
+├── results/
+│   ├── video_ocr_matriculas.mp4
+│   ├── comparativa_accuracy.png
+│   ├── comparativa_cer.png
+│   ├── comparativa_tiempos.png
+│   └── comparativa_metricas.csv
+└── assets/
+    └── miniatura_ocr.jpg
 ```
 
 La parte de detección y seguimiento se entrega en [`../P4/`](../P4/README.md).
@@ -32,7 +34,7 @@ La parte de detección y seguimiento se entrega en [`../P4/`](../P4/README.md).
 **Técnica:**
 
 - Lectura del vídeo fotograma a fotograma.
-- Detección de matrículas con el modelo YOLO `best.pt` de P4.
+- Detección de matrículas con el modelo YOLO `yolo11s_matriculas.pt` de P4.
 - Recorte y ampliación de cada matrícula.
 - Reconocimiento de caracteres con **PaddleOCR**.
 - Dibujado de las cajas y del texto reconocido.
@@ -42,9 +44,9 @@ La parte de detección y seguimiento se entrega en [`../P4/`](../P4/README.md).
 
 **Demostración:**
 
-[![Ver vídeo de detección y OCR](./test.jpg)](./VideoOCRparaREADME.mp4)
+[![Ver vídeo de detección y OCR](./assets/miniatura_ocr.jpg)](./results/video_ocr_matriculas.mp4)
 
-El CSV de esta tarea (`matriculas_detectadas.csv`) se genera ejecutando la celda de vídeo del notebook [`../P4/VC_P4_RTDETR.ipynb`](../P4/VC_P4_RTDETR.ipynb) en Colab. No se incluye en el repositorio porque es un artefacto de ejecución.
+El CSV de esta tarea (`matriculas_detectadas.csv`) se genera ejecutando la celda de vídeo del notebook [`../P4/P4_deteccion_vehiculos_matriculas.ipynb`](../P4/P4_deteccion_vehiculos_matriculas.ipynb) en Colab. No se incluye en el repositorio porque es un artefacto de ejecución.
 
 ---
 
@@ -74,11 +76,11 @@ El CSV de esta tarea (`matriculas_detectadas.csv`) se genera ejecutando la celda
 | PaddleOCR | ≈45 % | ≈47 % | ≈5,2 s |
 | SmolVLM | ≈70 % | ≈24 % | ≈4,2 s |
 
-![Comparación de accuracy](./accuracy.png)
-![Comparación de CER](./cer.png)
-![Comparación de tiempos](./tiempos.png)
+![Comparación de accuracy](./results/comparativa_accuracy.png)
+![Comparación de CER](./results/comparativa_cer.png)
+![Comparación de tiempos](./results/comparativa_tiempos.png)
 
-Los valores agregados están en [`metricas_comparativa.csv`](./metricas_comparativa.csv).
+Los valores agregados están en [`comparativa_metricas.csv`](./results/comparativa_metricas.csv).
 
 > El CSV por imagen (`comparativa_ocr_vlm.csv`) se genera ejecutando la celda de comparativa del notebook en Colab. No se incluye en el repositorio porque es un artefacto de ejecución.
 
@@ -90,12 +92,12 @@ Los valores agregados están en [`metricas_comparativa.csv`](./metricas_comparat
 pip install -r requirements.txt
 ```
 
-Después, abrir [`../P4/VC_P4_RTDETR.ipynb`](../P4/VC_P4_RTDETR.ipynb) y ejecutar:
+Después, abrir [`../P4/P4_deteccion_vehiculos_matriculas.ipynb`](../P4/P4_deteccion_vehiculos_matriculas.ipynb) y ejecutar:
 
 - la celda de **Tarea 2** para generar `matriculas_detectadas.csv` y el vídeo OCR;
 - la celda de **Tarea 2.2** para generar `comparativa_ocr_vlm.csv` y las gráficas.
 
-El notebook está preparado para Google Colab y monta Google Drive para acceder a `best.pt` y al dataset.
+El notebook está preparado para Google Colab y monta Google Drive para acceder al checkpoint `best.pt` y al dataset. En el repositorio, el modelo equivalente es `../P4/models/yolo11s_matriculas.pt`.
 
 ---
 

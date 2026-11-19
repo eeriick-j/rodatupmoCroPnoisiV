@@ -1,14 +1,14 @@
 """Genera los dos extras de P4: anonimización y flujo direccional.
 
 Entradas:
-    detecciones.csv      -> cajas y tracking de la Tarea 1
-    video_tarea1.mp4     -> vídeo anotado de la Tarea 1
+    data/detecciones_tarea1.csv              -> cajas y tracking de la Tarea 1
+    results/videos/deteccion_tarea1.mp4      -> vídeo anotado de la Tarea 1
 
 Salidas:
-    video_anonimizado.mp4
-    flujo_direcciones.csv
-    flujo_direcciones_resumen.csv
-    flujo_direcciones.png
+    results/videos/anonimizado.mp4
+    results/flujo/flujo_tracks.csv
+    results/flujo/flujo_resumen.csv
+    results/flujo/flujo_por_clase.png
 """
 
 from pathlib import Path
@@ -20,14 +20,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-BASE = Path(__file__).resolve().parent
-CSV = BASE / "detecciones.csv"
-VIDEO = BASE / "video_tarea1.mp4"
+BASE = Path(__file__).resolve().parent.parent
+CSV = BASE / "data" / "detecciones_tarea1.csv"
+VIDEO = BASE / "results" / "videos" / "deteccion_tarea1.mp4"
 
-VIDEO_OUT = BASE / "video_anonimizado.mp4"
-FLUJO_CSV = BASE / "flujo_direcciones.csv"
-FLUJO_RESUMEN = BASE / "flujo_direcciones_resumen.csv"
-FLUJO_PNG = BASE / "flujo_direcciones.png"
+VIDEO_OUT = BASE / "results" / "videos" / "anonimizado.mp4"
+FLUJO_CSV = BASE / "results" / "flujo" / "flujo_tracks.csv"
+FLUJO_RESUMEN = BASE / "results" / "flujo" / "flujo_resumen.csv"
+FLUJO_PNG = BASE / "results" / "flujo" / "flujo_por_clase.png"
 
 # Las coordenadas del CSV están en el vídeo original 1920x1080.
 ORIGEN_W, ORIGEN_H = 1920, 1080
