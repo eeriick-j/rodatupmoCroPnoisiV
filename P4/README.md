@@ -16,6 +16,7 @@ P4/
 ├── training_results.csv         # Métricas y pérdidas de las 10 épocas
 ├── training_loss.png            # Evolución de las pérdidas
 ├── training_metrics.png         # Evolución de Precision, Recall y mAP
+├── extras_faciles.py            # Genera anonimización y flujo direccional
 ├── load_rtdetr.py               # Carga y ejecución de RT-DETR
 ├── VC_P4_RTDETR.ipynb           # Notebook de la práctica
 ├── README.md                    # Documentación de P4
@@ -23,6 +24,10 @@ P4/
 │
 ├── video_tarea1.mp4             # Tarea 1: vehículos/personas y matrículas
 ├── video_tarea1_recorte.mp4     # Recorte de 10 s de la Tarea 1
+├── video_anonimizado.mp4        # Extra: vídeo con personas/vehículos pixelados
+├── flujo_direcciones.csv        # Extra: flujo por track
+├── flujo_direcciones_resumen.csv # Extra: resumen por clase y dirección
+├── flujo_direcciones.png        # Extra: gráfica del flujo direccional
 ├── test.jpg                     # Imagen de prueba para RT-DETR
 └── yolo11s.pt                   # YOLO11 small (detección de vehículos)
 ```
@@ -44,6 +49,8 @@ P4 implementa el prototipo de **detección y seguimiento** sobre el vídeo de tr
 - Vídeo anotado y CSV de resultados.
 
 **No se realiza OCR en P4.** La columna `texto_matricula` se deja vacía y el reconocimiento de caracteres corresponde a P4b.
+
+**Extras implementados:** anonimización de personas/vehículos y flujo direccional por clase.
 
 **Resultado de la ejecución:**
 
@@ -191,7 +198,68 @@ Los datos completos están en [`training_results.csv`](./training_results.csv).
 
 ---
 
-## 4️⃣ RT-DETR
+## 4️⃣ Extras implementados
+
+Se han implementado dos extras reutilizando `detecciones.csv` y `video_tarea1.mp4`, **sin reentrenar ni repetir la inferencia**:
+
+1. Anonimización de personas y vehículos.
+2. Flujo direccional por clase.
+
+El script [`extras_faciles.py`](./extras_faciles.py) genera todos los resultados de esta sección.
+
+### 4.1 Anonimización
+
+- Se recorre el vídeo fotograma a fotograma.
+- Para cada caja de persona o vehículo del CSV se aplica pixelado.
+- Se añade la etiqueta `ANONIMIZADO` en la esquina superior izquierda.
+- Salida: [`video_anonimizado.mp4`](./video_anonimizado.mp4).
+- Resultado: 2.832 fotogramas, 1280 × 720, 25 fps, 29.335 cajas pixeladas.
+
+> El vídeo conserva las cajas y los contadores originales, pero las regiones correspondientes a personas y vehículos están pixeladas.
+
+### 4.2 Flujo direccional
+
+Para cada track se calcula el centro de la primera y de la última detección:
+
+- `dx = x_final − x_inicial`
+- `dy = y_final − y_inicial`
+
+La dirección se clasifica como:
+
+- **izquierda/derecha** si `|dx| ≥ |dy|`;
+- **arriba/abajo** en caso contrario.
+
+Se consideran **tracks válidos** aquellos con al menos **5 detecciones** y un desplazamiento mínimo de **20 píxeles**. Así se evitan tracks de pocos fotogramas o movimientos por ruido.
+
+**Resultados:**
+
+| Clase | Izquierda | Derecha | Arriba | Abajo | Válidos | Descartados |
+|---|---:|---:|---:|---:|---:|---:|
+| Coche | 52 | 18 | 0 | 0 | 70 | 188 |
+| Persona | 9 | 30 | 2 | 1 | 42 | 37 |
+| Camión | 4 | 0 | 0 | 0 | 4 | 20 |
+| Autobús | 1 | 0 | 0 | 0 | 1 | 7 |
+| Moto | 3 | 0 | 0 | 0 | 3 | 1 |
+| **Total** | **69** | **48** | **2** | **1** | **120** | **253** |
+
+- Asignaciones clase-ID totales: 415.
+- Tracks con al menos 2 detecciones (analizables): 373.
+- Tracks válidos: 120.
+- Tracks descartados: 253.
+
+**Salidas:**
+
+- [`flujo_direcciones.csv`](./flujo_direcciones.csv): una fila por track, con desplazamiento y dirección.
+- [`flujo_direcciones_resumen.csv`](./flujo_direcciones_resumen.csv): resumen por clase y dirección.
+- [`flujo_direcciones.png`](./flujo_direcciones.png): gráfica comparativa.
+
+![Flujo direccional](./flujo_direcciones.png)
+
+> **Limitación:** los tracks que no cruzan la imagen, los que se pierden por oclusión o los que cambian de ID no siempre reflejan la dirección real. Por eso se descartan los tracks con pocas detecciones o poco desplazamiento.
+
+---
+
+## 5️⃣ RT-DETR
 
 El notebook incluye ejemplos de RT-DETR y el módulo [`load_rtdetr.py`](./load_rtdetr.py), que permite cargar las familias v1 y v2 en distintos tamaños.
 
@@ -203,7 +271,7 @@ El notebook incluye ejemplos de RT-DETR y el módulo [`load_rtdetr.py`](./load_r
 
 ---
 
-## 5️⃣ Cómo ejecutar
+## 6️⃣ Cómo ejecutar
 
 ```bash
 conda create --name VC_P4 python=3.9.5
@@ -215,11 +283,19 @@ Después, abrir [`VC_P4_RTDETR.ipynb`](./VC_P4_RTDETR.ipynb) y ejecutar las celd
 
 El vídeo de entrada no se incluye en el repositorio por tamaño; se utilizó el vídeo proporcionado para la práctica.
 
+Para regenerar la anonimización y el flujo direccional:
+
+```bash
+python extras_faciles.py
+```
+
+El script lee `detecciones.csv` y `video_tarea1.mp4`, y genera `video_anonimizado.mp4`, `flujo_direcciones.csv`, `flujo_direcciones_resumen.csv` y `flujo_direcciones.png`.
+
 Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 6️⃣ Entregables de P4
+## 7️⃣ Entregables de P4
 
 - [`README.md`](./README.md)
 - [`VC_P4_RTDETR.ipynb`](./VC_P4_RTDETR.ipynb)
@@ -227,26 +303,32 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 - [`detecciones.csv`](./detecciones.csv)
 - [`best.pt`](./best.pt)
 - [`training_loss.png`](./training_loss.png), [`training_metrics.png`](./training_metrics.png) y [`training_results.csv`](./training_results.csv)
+- [`extras_faciles.py`](./extras_faciles.py)
+- [`video_anonimizado.mp4`](./video_anonimizado.mp4)
+- [`flujo_direcciones.csv`](./flujo_direcciones.csv), [`flujo_direcciones_resumen.csv`](./flujo_direcciones_resumen.csv) y [`flujo_direcciones.png`](./flujo_direcciones.png)
 - Dataset: [`prac4VC_dataset`](https://drive.google.com/drive/folders/1RFd6sKH_QMQcpE_w5rWmy8rKiYUY5_SI)
 - Parte OCR: [`P4b/`](../P4b/README.md)
 
 ---
 
-## 7️⃣ Limitaciones y trabajo futuro
+## 8️⃣ Limitaciones y trabajo futuro
 
 - El entrenamiento no tiene una partición independiente de validación/test.
 - El checkpoint conserva 10 épocas aunque el notebook configure 30.
-- No se implementan los extras de flujo direccional, comparativa YOLO/RT-DETR, contornos ni anonimización.
+- Se implementan los extras de anonimización y flujo direccional.
+- Quedan pendientes la comparativa YOLO/RT-DETR y la detección por contornos.
 - La parte OCR se documenta en P4b y sus CSV se generan ejecutando el notebook en Colab.
 
 ---
 
-## 8️⃣ Librerías principales
+## 9️⃣ Librerías principales
 
 ```bash
 pip install ultralytics
 pip install opencv-python
 pip install pandas
+pip install numpy
+pip install matplotlib
 pip install lap
 ```
 

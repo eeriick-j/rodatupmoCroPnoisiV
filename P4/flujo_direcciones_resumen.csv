@@ -1,0 +1,6 @@
+tipo_objeto,izquierda,derecha,arriba,abajo,total_tracks,tracks_validos,tracks_descartados
+coche,52,18,0,0,258,70,188
+persona,9,30,2,1,79,42,37
+camion,4,0,0,0,24,4,20
+autobus,1,0,0,0,8,1,7
+moto,3,0,0,0,4,3,1
