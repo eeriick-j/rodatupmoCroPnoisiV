@@ -18,7 +18,8 @@ P4b/
 │   ├── comparativa_accuracy.png
 │   ├── comparativa_cer.png
 │   ├── comparativa_tiempos.png
-│   └── comparativa_metricas.csv
+│   ├── comparativa_metricas.csv
+│   └── comparativa_ocr_vlm.csv
 └── assets/
     └── miniatura_ocr.jpg
 ```
@@ -92,7 +93,7 @@ El CSV de esta tarea (`matriculas_detectadas.csv`) se genera ejecutando la celda
 
 Los valores agregados están en [`comparativa_metricas.csv`](./results/comparativa_metricas.csv).
 
-> El CSV por imagen (`comparativa_ocr_vlm.csv`) se genera ejecutando la celda de comparativa del notebook en Colab. No se incluye en el repositorio porque es un artefacto de ejecución.
+El CSV por imagen está en [`comparativa_ocr_vlm.csv`](./results/comparativa_ocr_vlm.csv). Se genera ejecutando la celda de comparativa del notebook en Colab.
 
 ---
 
@@ -113,5 +114,5 @@ El notebook está preparado para Google Colab y monta Google Drive para acceder 
 
 ## 4️⃣ Limitaciones
 
-- Los CSV de ejecución (`matriculas_detectadas.csv` y `comparativa_ocr_vlm.csv`) no se almacenan en el repositorio; se generan con el notebook.
+- El CSV `matriculas_detectadas.csv` no se almacena en el repositorio; se genera con el notebook. El CSV por imagen de la comparativa sí está en `results/comparativa_ocr_vlm.csv`.
 - Las métricas de la comparativa son aproximadas y se obtuvieron sobre el conjunto de imágenes de matrículas de la práctica.
