@@ -1,3 +1,9 @@
+ultralytics>=8.3
+opencv-python
+pandas
+numpy
+matplotlib
+lap
 torch>=2.0.1
 torchvision>=0.15.2
 faster-coco-eval>=1.6.6

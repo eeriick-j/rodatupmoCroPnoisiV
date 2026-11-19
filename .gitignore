@@ -9,5 +9,11 @@
 # Otros archivos pesados
 *.weights
 
+# Resultados y artefactos generados
+runs/
+P4/RT-DETR/
+muestra_*.jpg
+*.log
+
 __pycache__/
 *.pyc
