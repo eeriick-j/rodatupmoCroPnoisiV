@@ -105,4 +105,3 @@ El notebook está preparado para Google Colab y monta Google Drive para acceder 
 
 - Los CSV de ejecución (`matriculas_detectadas.csv` y `comparativa_ocr_vlm.csv`) no se almacenan en el repositorio; se generan con el notebook.
 - Las métricas de la comparativa son aproximadas y se obtuvieron sobre el conjunto de imágenes de matrículas de la práctica.
-- No se incluye una comparativa YOLO vs RT-DETR para detección de matrículas; esa parte es un extra del enunciado y no forma parte de la entrega base.
