@@ -265,7 +265,32 @@ Se consideran **tracks válidos** aquellos con al menos **5 detecciones** y un d
 
 ---
 
-## 5️⃣ RT-DETR
+## 5️⃣ Parte OCR (P4b)
+
+La parte OCR se desarrolla en P4b reutilizando el detector de matrículas de P4. Allí se comparan dos enfoques sobre los mismos recortes de matrícula:
+
+| Modelo | Accuracy | CER | Tiempo medio |
+|---|---:|---:|---:|
+| PaddleOCR | ≈45 % | ≈47 % | ≈5,2 s |
+| SmolVLM | ≈70 % | ≈24 % | ≈4,2 s |
+
+### Comparación de Accuracy
+
+![Comparación de accuracy](../P4b/results/comparativa_accuracy.png)
+
+### Comparación del error por carácter (CER)
+
+![Comparación de CER](../P4b/results/comparativa_cer.png)
+
+### Comparación del tiempo de inferencia
+
+![Comparación de tiempos](../P4b/results/comparativa_tiempos.png)
+
+> La comparativa es aproximada. PaddleOCR se ejecutó en CPU y SmolVLM en GPU, por lo que los tiempos no son directamente comparables. El vídeo de demostración y la documentación completa están en [`P4b/README.md`](../P4b/README.md).
+
+---
+
+## 6️⃣ RT-DETR
 
 El notebook incluye ejemplos de RT-DETR y el módulo [`rtdetr_loader.py`](./scripts/rtdetr_loader.py), que permite cargar las familias v1 y v2 en distintos tamaños.
 
@@ -277,7 +302,7 @@ El notebook incluye ejemplos de RT-DETR y el módulo [`rtdetr_loader.py`](./scri
 
 ---
 
-## 6️⃣ Cómo ejecutar
+## 7️⃣ Cómo ejecutar
 
 ```bash
 conda create --name VC_P4 python=3.9.5
@@ -295,7 +320,7 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 7️⃣ Entregables de P4
+## 8️⃣ Entregables de P4
 
 - [`README.md`](./README.md)
 - [`P4_deteccion_vehiculos_matriculas.ipynb`](./P4_deteccion_vehiculos_matriculas.ipynb)
@@ -311,7 +336,7 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 8️⃣ Limitaciones y trabajo futuro
+## 9️⃣ Limitaciones y trabajo futuro
 
 - El entrenamiento no tiene una partición independiente de validación/test.
 - El checkpoint conserva 10 épocas aunque el notebook configure 30.
@@ -321,7 +346,7 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 9️⃣ Librerías principales
+## 🔟 Librerías principales
 
 ```bash
 pip install ultralytics
