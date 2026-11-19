@@ -15,7 +15,6 @@ P4/
 ├── requirements.txt
 ├── P4_deteccion_vehiculos_matriculas.ipynb
 ├── scripts/
-│   ├── generar_extras.py
 │   └── rtdetr_loader.py
 ├── models/
 │   ├── yolo11s_matriculas.pt
@@ -207,12 +206,12 @@ Los datos completos están en [`resultados.csv`](./results/entrenamiento/resulta
 
 ## 4️⃣ Extras implementados
 
-Se han implementado dos extras reutilizando `detecciones_tarea1.csv` y `deteccion_tarea1.mp4`, **sin reentrenar ni repetir la inferencia**:
+Se han implementado dos extras reutilizando `data/detecciones_tarea1.csv` y `results/videos/deteccion_tarea1.mp4`, **sin reentrenar ni repetir la inferencia**:
 
 1. Anonimización de personas y vehículos.
 2. Flujo direccional por clase.
 
-El script [`generar_extras.py`](./scripts/generar_extras.py) genera todos los resultados de esta sección.
+La sección **Extras** del notebook genera todos los resultados de esta sección.
 
 ### 4.1 Anonimización
 
@@ -290,13 +289,7 @@ Después, abrir [`P4_deteccion_vehiculos_matriculas.ipynb`](./P4_deteccion_vehic
 
 El vídeo de entrada no se incluye en el repositorio por tamaño; se utilizó el vídeo proporcionado para la práctica.
 
-Para regenerar la anonimización y el flujo direccional:
-
-```bash
-python scripts/generar_extras.py
-```
-
-El script lee `data/detecciones_tarea1.csv` y `results/videos/deteccion_tarea1.mp4`, y genera `results/videos/anonimizado.mp4` y los archivos de `results/flujo/`.
+Los extras se ejecutan desde la sección **Extras** del notebook. Reutilizan `data/detecciones_tarea1.csv` y `results/videos/deteccion_tarea1.mp4`, y generan `results/videos/anonimizado.mp4` y los archivos de `results/flujo/`.
 
 Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
@@ -310,7 +303,7 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 - [`detecciones_tarea1.csv`](./data/detecciones_tarea1.csv)
 - [`yolo11s_matriculas.pt`](./models/yolo11s_matriculas.pt)
 - [`perdidas.png`](./results/entrenamiento/perdidas.png), [`metricas.png`](./results/entrenamiento/metricas.png) y [`resultados.csv`](./results/entrenamiento/resultados.csv)
-- [`generar_extras.py`](./scripts/generar_extras.py)
+- Sección **Extras** del notebook
 - [`anonimizado.mp4`](./results/videos/anonimizado.mp4)
 - [`flujo_tracks.csv`](./results/flujo/flujo_tracks.csv), [`flujo_resumen.csv`](./results/flujo/flujo_resumen.csv) y [`flujo_por_clase.png`](./results/flujo/flujo_por_clase.png)
 - Dataset: [`prac4VC_dataset`](https://drive.google.com/drive/folders/1RFd6sKH_QMQcpE_w5rWmy8rKiYUY5_SI)
