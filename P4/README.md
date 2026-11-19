@@ -14,33 +14,27 @@ P4/
 ├── README.md
 ├── requirements.txt
 ├── P4_deteccion_vehiculos_matriculas.ipynb
-├── scripts/
-│   └── rtdetr_loader.py
 ├── models/
 │   ├── yolo11s_matriculas.pt
 │   └── yolo11s_vehiculos.pt
 ├── data/
 │   └── detecciones_tarea1.csv
-├── results/
-│   ├── videos/
-│   │   ├── deteccion_tarea1.mp4
-│   │   ├── deteccion_tarea1_recorte.mp4
-│   │   └── anonimizado.mp4
-│   ├── flujo/
-│   │   ├── flujo_tracks.csv
-│   │   ├── flujo_resumen.csv
-│   │   └── flujo_por_clase.png
-│   └── entrenamiento/
-│       ├── resultados.csv
-│       ├── perdidas.png
-│       └── metricas.png
-└── assets/
-    └── imagen_prueba_rtdetr.jpg
+└── results/
+    ├── videos/
+    │   ├── deteccion_tarea1.mp4
+    │   ├── deteccion_tarea1_recorte.mp4
+    │   └── anonimizado.mp4
+    ├── flujo/
+    │   ├── flujo_tracks.csv
+    │   ├── flujo_resumen.csv
+    │   └── flujo_por_clase.png
+    └── entrenamiento/
+        ├── resultados.csv
+        ├── perdidas.png
+        └── metricas.png
 ```
 
 > La parte OCR se entrega en la carpeta [`P4b/`](../P4b/README.md).
->
-> `RT-DETR/` se clona automáticamente desde el notebook si la carpeta no existe.
 
 ---
 
@@ -290,19 +284,7 @@ La parte OCR se desarrolla en P4b reutilizando el detector de matrículas de P4.
 
 ---
 
-## 6️⃣ RT-DETR
-
-El notebook incluye ejemplos de RT-DETR y el módulo [`rtdetr_loader.py`](./scripts/rtdetr_loader.py), que permite cargar las familias v1 y v2 en distintos tamaños.
-
-- `rtdetr_loader.py` descarga los pesos oficiales y construye el modelo y el postprocesador.
-- `imagen_prueba_rtdetr.jpg` se usa como imagen de prueba.
-- RT-DETR **no** se usa para generar `detecciones_tarea1.csv` ni el vídeo final; el detector final de matrículas es YOLO11s (`yolo11s_matriculas.pt`).
-
-> La comparativa YOLO vs RT-DETR para detección de matrículas es un extra del enunciado y no forma parte de la entrega base.
-
----
-
-## 7️⃣ Cómo ejecutar
+## 6️⃣ Cómo ejecutar
 
 ```bash
 conda create --name VC_P4 python=3.9.5
@@ -320,7 +302,7 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 8️⃣ Entregables de P4
+## 7️⃣ Entregables de P4
 
 - [`README.md`](./README.md)
 - [`P4_deteccion_vehiculos_matriculas.ipynb`](./P4_deteccion_vehiculos_matriculas.ipynb)
@@ -336,17 +318,17 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 9️⃣ Limitaciones y trabajo futuro
+## 8️⃣ Limitaciones y trabajo futuro
 
 - El entrenamiento no tiene una partición independiente de validación/test.
 - El checkpoint conserva 10 épocas aunque el notebook configure 30.
 - Se implementan los extras de anonimización y flujo direccional.
-- Quedan pendientes la comparativa YOLO/RT-DETR y la detección por contornos.
+- Queda pendiente la detección por contornos.
 - La parte OCR se documenta en P4b y sus CSV se generan ejecutando el notebook en Colab.
 
 ---
 
-## 🔟 Librerías principales
+## 9️⃣ Librerías principales
 
 ```bash
 pip install ultralytics
@@ -355,13 +337,6 @@ pip install pandas
 pip install numpy
 pip install matplotlib
 pip install lap
-```
-
-Para RT-DETR, además:
-
-```bash
-pip install tensorboard
-pip install faster_coco_eval
 ```
 
 Para el uso de GPU es necesario disponer de una instalación compatible de CUDA y PyTorch.
