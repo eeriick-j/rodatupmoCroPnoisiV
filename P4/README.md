@@ -188,7 +188,6 @@ Las pérdidas de entrenamiento descienden de forma sostenida: `box_loss` pasa de
 | Recall | 0,76797 |
 | mAP50 | 0,78740 |
 | mAP50-95 | 0,42086 |
-| `best_fitness` | 0,42086 |
 
 Los datos completos están en [`resultados.csv`](./results/entrenamiento/resultados.csv).
 
@@ -291,16 +290,9 @@ Para la parte OCR, consultar [`../P4b/README.md`](../P4b/README.md).
 
 ---
 
-## 7️⃣ Limitaciones y trabajo futuro
 
-- El entrenamiento no tiene una partición independiente de validación/test.
-- El checkpoint conserva 10 épocas aunque el notebook configure 30.
-- Se implementan los extras de anonimización y flujo direccional.
-- Queda pendiente la detección por contornos.
 
----
-
-## 8️⃣ Librerías principales
+## 8️ Librerías principales
 
 ```bash
 pip install ultralytics
