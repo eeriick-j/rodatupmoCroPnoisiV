@@ -159,7 +159,7 @@ Las coordenadas están normalizadas respecto al ancho y alto de la imagen.
 | Épocas completadas en `yolo11s_matriculas.pt` | 10 |
 | Dispositivo | GPU (Google Colab) |
 | Dataset | [`prac4VC_dataset`](https://drive.google.com/drive/folders/1RFd6sKH_QMQcpE_w5rWmy8rKiYUY5_SI) |
-| `train` / `val` | `images` / `images` |
+| `train` / `val` | `images` / `val` |
 
 > El notebook configura 30 épocas, pero el checkpoint `yolo11s_matriculas.pt` que se conserva contiene **10 épocas**. Las curvas y métricas de este README corresponden a esas 10 épocas.
 
@@ -194,7 +194,7 @@ Las pérdidas de entrenamiento descienden de forma sostenida: `box_loss` pasa de
 
 Los datos completos están en [`resultados.csv`](./results/entrenamiento/resultados.csv).
 
-> **Limitación:** al usar `val: images` igual que `train: images`, estas métricas no son una validación independiente. Para una evaluación rigurosa habría que separar train/val/test y reentrenar.
+
 
 ---
 

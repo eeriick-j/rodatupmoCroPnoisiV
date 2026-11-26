@@ -115,4 +115,3 @@ El notebook está preparado para Google Colab y monta Google Drive para acceder 
 ## 4️⃣ Limitaciones
 
 - El CSV `matriculas_detectadas.csv` no se almacena en el repositorio; se genera con el notebook. El CSV por imagen de la comparativa sí está en `results/comparativa_ocr_vlm.csv`.
-- Las métricas de la comparativa son aproximadas y se obtuvieron sobre el conjunto de imágenes de matrículas de la práctica.
