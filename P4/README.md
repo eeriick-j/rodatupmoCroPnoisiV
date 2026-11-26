@@ -140,8 +140,6 @@ Las coordenadas están normalizadas respecto al ancho y alto de la imagen.
 
 **Resultado:** conjunto de datos estructurado y compatible con Ultralytics YOLO.
 
-> **Limitación documentada:** el `data.yaml` del notebook usa `train: images` y `val: images`. No se creó una partición independiente de validación/test. Por tanto, las métricas del apartado siguiente se calculan sobre las mismas imágenes usadas en entrenamiento y deben interpretarse como una comprobación de ajuste, no como una validación independiente.
-
 ---
 
 ## 3️⃣ Entrenamiento del detector de matrículas
